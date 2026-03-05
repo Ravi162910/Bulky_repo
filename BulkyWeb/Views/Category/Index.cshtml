@@ -1,5 +1,6 @@
 ﻿@model List<Category>
 <div class="container">
+    <partial name="_Notification"/>
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
@@ -30,6 +31,16 @@
             <tr>
                 <td>@obj.Name</td>
                 <td>@obj.DisplayOrder</td>
+                <td>
+                    <div class="m-75 btn-group" role="group">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id ="@obj.Id" class="btn btn-primary mx-2">
+                            Edit
+                        </a>
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                            Delete
+                        </a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
