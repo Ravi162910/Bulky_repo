@@ -5,7 +5,7 @@
 namespace BulkyWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCategoryTableToDb : Migration
+    public partial class AddToCategoryTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

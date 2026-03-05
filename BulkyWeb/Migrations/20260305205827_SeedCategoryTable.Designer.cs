@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260228044433_SeedCategoryTable")]
+    [Migration("20260305205827_SeedCategoryTable")]
     partial class SeedCategoryTable
     {
         /// <inheritdoc />
