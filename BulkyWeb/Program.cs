@@ -1,5 +1,6 @@
+using Bulky.DataAccess.Repository;
 using BulkyWeb.Data;
-using DataAccess.Repository;
+using BulkyWeb.Repository.IRepository;
 using DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

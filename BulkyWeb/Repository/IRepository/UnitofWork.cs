@@ -1,17 +1,22 @@
 ﻿using BulkyWeb.Data;
+using BulkyWeb.Repository.IRepository;
+using DataAccess.Repository;
 using DataAccess.Repository.IRepository;
 
-namespace DataAccess.Repository
+namespace Bulky.DataAccess.Repository
 {
     public class UnitofWork : IUnitofWork
     {
         private ApplicationDbContext _db;
+        public ICategoryRepository Category { get; private set; }
+        public IProductRepository Product { get; private set; }
         public UnitofWork(ApplicationDbContext db)
         {
             _db = db;
             Category = new CategoryRepository(_db);
+            Product = new ProductRepository(_db);
         }
-        public ICategoryRepository Category { get; private set; }
+
         public void Save()
         {
             _db.SaveChanges();

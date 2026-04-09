@@ -3,13 +3,14 @@ using BulkyWeb.Data;
 using BulkyWeb.Models;
 using BulkyWeb.Repository.IRepository;
 using DataAccess.Repository.IRepository;
+using Models;
 
 namespace DataAccess.Repository
 {
-    internal class CategoryRepository : Repository<Category>, ICategoryRepository
+    internal class ProductRepository : Repository<Product>, IProductRepository
     {
         private ApplicationDbContext _db;
-        public CategoryRepository(ApplicationDbContext db) : base(db)
+        public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -19,11 +20,11 @@ namespace DataAccess.Repository
             _db.SaveChanges();
         }
 
-        public void Update(Category category)
+        public void Update(Product product)
         {
-            dbSet.Update(category);
+            dbSet.Update(product);
         }
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<Product> GetAll()
         {
             return dbSet.ToList();
         }
