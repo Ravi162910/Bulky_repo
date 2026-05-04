@@ -15,13 +15,13 @@
             </div>
 
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Create New Product
             </a>
         </div>
     </div>
 </div>
-<table class="table table-bordered table-striped">
+    <table id="tblData" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Title</th>
@@ -31,25 +31,10 @@
             <th>Category</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var obj in Model)
-        {
-            <tr>
-                <td>@obj.Title</td>
-                <td>@obj.Description</td>
-                <td>@obj.ListPrice</td>
-                <td>@obj.Author</td>
-                <td>
-                    <div class="m-75 btn-group" role="group">
-                        <a asp-controller="Product" asp-action="Edit" asp-route-id ="@obj.Id" class="btn btn-primary mx-2">
-                            Edit
-                        </a>
-                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                            Delete
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
+
 </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}
