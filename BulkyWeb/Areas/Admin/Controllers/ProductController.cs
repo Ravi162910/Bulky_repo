@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using Models.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Utilities;
 namespace BulkyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IProductRepository _ProductRepository;
