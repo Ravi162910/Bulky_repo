@@ -1,8 +1,11 @@
-using System.Diagnostics;
+using Bulky.DataAccess.Repository;
 using BulkyWeb.Models;
 using DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Diagnostics;
+using System.Security.Claims;
 
 namespace BulkyWeb.Areas.Customer.Controllers
 {
@@ -24,11 +27,44 @@ namespace BulkyWeb.Areas.Customer.Controllers
             return View(productlist);
         }
 
-        public IActionResult Details(int productID)
+        public IActionResult Details(int productId)
         {
-            Product ProductID = _unitofwork.Product.Get(prod => prod.Id == productID, includeproperties: "Category");
-            return View(ProductID);
+            ShoppingCart cart = new()
+            {
+                Product = _unitofwork.Product.Get(u => u.Id == productId, includeproperties: "Category"),
+                Count = 1,
+                ProductId = productId
+            };
+            return View(cart);
+
         }
+
+        [HttpPost]
+        public IActionResult Details(ShoppingCart cart)
+        {
+           var claimI = (ClaimsIdentity)User.Identity;
+            var userId = claimI.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            cart.ApplicationUserId = userId;
+
+            ShoppingCart shoppingCart = _unitofwork.ShoppingCart.Get(u => u.ApplicationUserId == userId && u.ProductId == cart.ProductId);
+            if (shoppingCart != null)
+            {
+                cart.Count += shoppingCart.Count;
+                _unitofwork.ShoppingCart.Update(cart);
+                _unitofwork.Save();
+            }
+            else
+            {
+                _unitofwork.ShoppingCart.Add(cart);
+                _unitofwork.Save();
+            }
+
+            TempData["success"] = "Cart updated!";
+
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult Privacy()
         {
